@@ -1,0 +1,2 @@
+11/12 ? - 1hr  // modelagem do banco
+13/12   - 2hr ?//  Criei o projeto, configuei as pastas, e peguei um template do admilte, rotas, controllers construindo assim, o crud de categoria, forma de pgto e iniciei o de produtos 
