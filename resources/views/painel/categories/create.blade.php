@@ -44,10 +44,57 @@
                 <div class="form-group">
                     <label for="nome" class="col-sm-2 control-label">Descrição:</label>
                     <div class="col-sm-8">
-                    <input type="text" class="form-control" id="description" name="description" placeholder="Digite o nome do category.." value="@if(!empty($category)){{ $category->description}} @endif">
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Digite o nome do category.." value="@if(!empty($category)){{ $category->description}}@endif">
                     </div>
                 </div>
 
+
+
+
+            <!-------------------------->
+            <!------------- VendZOnas TABLE!!!! -------->
+            <br />
+                    <br />
+                    <hr>
+
+          <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Subcategorias</h3>
+                        @if(isset($category))
+                            <a href='{{url("category/$category->id/sub_create")}}' class="btn btn-info btn-xs">Adicionar SubCategoria  </a>
+                        @endif
+                    </div>
+
+                <div class="box-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Descricao</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @if(isset($subcategories))
+                      @forelse ($subcategories as $i)
+                    <tr>
+                        <td>{{$i->description}}</td>
+                        <td>
+                            <a href='{{url("vendedor/$category->id/$i->id/item_del")}}' class="actions delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @empty
+                      <tr>
+                        <td colspan="7">Nenhuma zona encontrada</td>
+                      </tr>
+                    @endforelse
+                  @endif
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
 
 

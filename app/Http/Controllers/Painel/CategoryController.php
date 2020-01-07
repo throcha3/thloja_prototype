@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
 
 class CategoryController extends Controller
 {
@@ -51,9 +52,10 @@ class CategoryController extends Controller
     {
 
       $category = Category::find($id);
+      $subcategories = SubCategory::where('category_id','=', $category->id)->get();
 
-      
-      return view('painel.categories.create', compact('category'));
+    //dd($subcategories);
+      return view('painel.categories.create', compact('category','subcategories'));
     }
 
 
@@ -61,11 +63,11 @@ class CategoryController extends Controller
     {
       $dataForm = $request->all();
 
-      $Category = Category::find($id);
+      $category = Category::find($id);
 
-      $Category->description = $dataForm['description'];
+      $category->description = $dataForm['description'];
 
-      $update = $Category->save();
+      $update = $category->save();
 
       if ($update)
           return redirect()->route('category.index');
@@ -81,56 +83,36 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-      $Category = Category::find($id)->delete();
+      $category = Category::find($id)->delete();
 
-      if ($Category)
+      if ($category)
           return redirect()->route('category.index');
       else
           return redirect()->route('category.show',$id)->with(['errors' => 'falha ao deletar']);
     }
 
-    // public function itemCreate($id){
-    //     $Category = Category::find($id);
-    //     $zonas = Zona::all()->sortBy("nome");
-    //     $zonasNaoIncluidas = array();
-    //     foreach ($zonas as $z) {
-    //       $vendzonaS = VendZona::where('id_Category', $Category->id)->where('id_zona', $z->id)->first();
-    //       if ($vendzonaS == null) $zonasNaoIncluidas[] = $z;
-    //     }
-    //     $zonas = $zonasNaoIncluidas;
-    //     $vendzona = VendZona::where('id_Category','=', $Category->id)->get();
-    //     return view('painel.categories.item', compact('Category','vendzonas','zonas'));
-    // }
+    public function subCreate($id)
+    {
+      $category = Category::find($id);
+      $subcategories = SubCategory::where('category_id','=', $category->id)->get();
 
-    // public function itemStore(Request $request){
+    //dd($subcategories);
+      return view('painel.categories.item', compact('category','subcategories'));
+    }
 
-    //     $dataForm = $request->only('id_Category',
-    //                                 'id_zona'
-    //                             );
+    public function subStore(Request $request)
+    {
+      $dataForm = $request->all();
 
-    //     $insert = VendZona::create($dataForm);
-    //     if($insert)
-    //         return redirect()->route('Category.edit',$dataForm['id_Category']);
-    //     else
-    //         return redirect()->back();
-    // }
+      $model = new SubCategory();
+      $model->description = $dataForm['description'];
+      $model->category_id = $dataForm['cat_id'];
 
-    // public function itemDel($idVend, $idVendZona){
-    //     $del = VendZona::find($idVendZona)->delete();
-    //     if($del)
-    //         return redirect()->route('Category.edit',$idVend)->with('msg','Zona excluída com sucesso');
-    //     else
-    //         return redirect()->route('Category.edit',$idVend)->withErrors('Erro ao excluir Zona, tente novamente');
-    // }
-
-    // public function disableHim($id){
-    //     $Category = Category::find($id);
-    //     if ($Category <> null){
-    //         $Category->status = '0';
-    //         $Category->token = "";
-    //         $Category->senha = "";
-    //         $Category->save();
-    //         return view('painel.categories.create', compact('Category','vendzona'));
-    //     }
-    // }
+      $insert = $model->save();
+      if($insert)
+          return redirect()->route('category.edit', $dataForm['cat_id']);
+      else
+          return redirect()->back()->with(['errors' => 'falha ao salvar subcategoria']);;
+    }
+    
 }

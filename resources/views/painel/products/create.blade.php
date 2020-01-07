@@ -63,9 +63,9 @@
               <option value="{{$s['id']}}" 
               @if(old('subcategories') == $s['id'])
                   selected
-              @endif 
+              @endif  
               @if(isset($product)) 
-                @if($product->subcategory->id == $s['id']) 
+                @if($product->subcategory_id == $s['id']) 
                   selected
                 @endif 
               @endif   >{{$s['description']}}  </option>

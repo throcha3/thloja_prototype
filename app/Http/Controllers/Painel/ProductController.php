@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\SubCategory;
 
 class ProductController extends Controller
 {
@@ -23,19 +24,24 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('painel.products.create');
+        $subcategories = SubCategory::all();
+        return view('painel.products.create', compact('subcategories'));
     }
 
     public function store(Request $request)
     {
+        //TODO: lembrar de colocar o upload da photo
       $dataForm = $request->all();
 
       $model = new Product();
       $dataForm['_token'] = null;
       //$model->description = $dataForm['description'];
+
+      
       $model->fill($dataForm);
-
-
+      $model->price = str_replace(',', '.', str_replace('.', '', $model->price));  
+      $model->cost_price = str_replace(',', '.', str_replace('.', '', $model->cost_price));  
+      //dd($model);
       $insert = $model->save();
       if($insert)
           return redirect()->route('product.index');
@@ -52,11 +58,10 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-
       $product = Product::find($id);
-
+      $subcategories = SubCategory::all();
       
-      return view('painel.products.create', compact('product'));
+      return view('painel.products.create', compact('product', 'subcategories'));
     }
 
 

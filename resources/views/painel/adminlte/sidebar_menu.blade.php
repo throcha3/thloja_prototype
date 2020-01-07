@@ -44,10 +44,15 @@
             </a>
         </li>
 
-
         <li>
             <a href="{{route('product.index')}}">
                 <i class="fa fa-child"></i> <span>Produtos</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{route('customer.index')}}">
+                <i class="fa fa-child"></i> <span>Clientes</span>
             </a>
         </li>
         
