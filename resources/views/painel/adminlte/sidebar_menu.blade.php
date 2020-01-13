@@ -55,6 +55,12 @@
                 <i class="fa fa-child"></i> <span>Clientes</span>
             </a>
         </li>
+
+        <li>
+            <a href="{{route('order.index')}}">
+                <i class="fa fa-child"></i> <span>Pedidos</span>
+            </a>
+        </li>
         
       </ul>
     </section>
