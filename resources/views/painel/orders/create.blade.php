@@ -89,7 +89,7 @@
       <div class="col-md-2">
         <div class="form-group">
           <label for="status">Status</label>
-          <input type="text" class="form-control" maxlength="40" id="status" name="status" value="{{$order->status}}" placeholder="Descrição">
+          <input type="text" readonly class="form-control" maxlength="40" id="status" name="status" value=" @if(isset($order))@if($order->status == 0) Pendente @else Finalizado @endif @endif" placeholder="Descrição">
         </div>
       </div>
       

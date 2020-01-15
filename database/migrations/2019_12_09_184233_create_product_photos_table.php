@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubcategoryTable extends Migration
+class CreateProductPhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateSubcategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcategories', function (Blueprint $table) {
+        Schema::create('product_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('product_id')->unsigned();
 
-            $table->string('description', 50);
+            $table->string('photo_url',100);
 
-            //TODO: atrelar a categoria
-            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -31,6 +30,7 @@ class CreateSubcategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcategories');
+        Schema::dropIfExists('product_photos');
     }
 }
+

@@ -23,6 +23,10 @@ class CreateProductsTable extends Migration
 
             $table->string('photo_url', 100);
 
+            $table->decimal('current_amount', 12,2);
+            $table->decimal('price', 12,2);
+            $table->decimal('cost_price', 12,2);
+
             
             //Atrelar a subcategoria
             $table->bigInteger('subcategory_id')->unsigned();

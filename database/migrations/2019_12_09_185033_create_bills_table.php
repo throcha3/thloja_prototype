@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderTable extends Migration
+class CreateBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,22 @@ class CreateOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('type'); //1 to receive 2 to pay
 
-            $table->date('order_date');
-            $table->integer('items');
-            $table->float('total',12,2);
-            $table->integer('status')->unsigned()->default(0);
-            $table->text('observations');
-            //Atrelar cliente
-            //Atrelar forma de pgto / condição?
+            $table->string('doc',100); //Document id
+            $table->string('doc_type',100); //What kind of document id? order? nota fiscal?
+            $table->string('installments',100); //Parcelas
+
+            $table->date("due");
+            $table->date("payment")->nullable();
+
+            $table->text('observations',100); //Parcelas
 
             $table->bigInteger('customer_id')->unsigned();
             $table->bigInteger('payment_id')->unsigned();
+
             $table->timestamps();
         });
     }
@@ -37,6 +40,7 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('bills');
     }
 }
+

@@ -30,6 +30,15 @@ class CreateDbRelations extends Migration
         Schema::table('subcategories', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories');            
         });
+
+        Schema::table('product_photos', function (Blueprint $table) {
+            $table->foreign('product_id')->references('id')->on('products');           
+        });
+
+        Schema::table('bills', function (Blueprint $table) {
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('payment_id')->references('id')->on('payment_methods');
+        });
     }
 
     /**
@@ -39,6 +48,6 @@ class CreateDbRelations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('db_relations');
+        
     }
 }
