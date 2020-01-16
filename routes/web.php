@@ -22,6 +22,7 @@ Route::resource('/paymentcondition', 'Painel\PaymentConditionController');
 Route::resource('/paymentmethod',    'Painel\PaymentMethodController'   );
 Route::resource('/product',          'Painel\ProductController'         );
 Route::resource('/subcategory',      'Painel\SubCategoryController'     );
+Route::resource('/bill',             'Painel\BillController'            );
 
 //Rotas adicionais das entidades
 Route::get ('/category/{catId}/sub_create',  'Painel\CategoryController@subCreate')->name('category.sub_create');
