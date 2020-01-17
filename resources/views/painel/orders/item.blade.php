@@ -82,9 +82,27 @@
       <div class="col-md-2">
         <div class="form-group">
           <label for="amount">Qtde</label>
-          <input type="number" class="form-control" maxlength="40" id="amount" name="amount" value="" placeholder="Qtde">
+          <input type="number" onChange="setTotal()" class="form-control" maxlength="40" id="amount" name="amount" value="" placeholder="Qtde">
         </div>
       </div>
+
+      <script type="text/javascript">
+          function setTotal(){
+            var x = parseInt(document.getElementById("amount").value);
+
+            if (x > 1) {
+              var pr = document.getElementById("price").value;
+              pr = pr.toString().replace(".", "");
+              pr = pr.toString().replace(",", ".");
+              var tp = x * pr;
+              tp = tp.toFixed(2);
+              tp = tp.toString().replace(".", ",");
+              $('#total_price').val(tp);
+            }
+          }
+      </script>
+
+
 
       <div class="col-md-2">
         <div class="form-group">
@@ -207,8 +225,8 @@
                     @endif
                 </div>
 
-            <div class="box-body">
-            <table class="table table-hover">
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
               <thead>
                 <tr>
                   <th>Item</th>

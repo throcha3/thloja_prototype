@@ -10,8 +10,8 @@
         <h3 class="box-title"><b>@yield('table_title')</b> </h3>
 	  </div>
 
-	  <div class="box-body">
-
+	  <div class="box-body table-responsive">
+    
 		@yield('table_body')
 
 	  </div>

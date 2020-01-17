@@ -150,8 +150,8 @@
                     @endif
                 </div>
 
-            <div class="box-body">
-            <table class="table table-hover">
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
               <thead>
                 <tr>
                   <th>Item</th>
