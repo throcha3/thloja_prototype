@@ -36,7 +36,7 @@
     <div class="row">
     <div class="col-md-6">
         <label for="product_id">Produto</label>
-        <select id="product_id" name="product_id" class="form-control js-example-basic-single" required>
+        <select id="product_id"  onchange="getPrice()" name="product_id" class="form-control js-example-basic-single" required>
           <option value="">Escolha..</option>
           @if(isset($products))
             @foreach($products as $y)
@@ -49,6 +49,35 @@
           @endif
         </select>
       </div>
+
+      <script type="text/javascript">
+        
+            function getPrice() {
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+              var e = document.getElementById("product_id");
+              var strUser = e.options[e.selectedIndex].value;
+                $.ajax({
+                    type: "GET",
+                    url: "http://192.168.33.10/laravel/thloja/public/product/price/"+strUser,
+                    success: function(data) {
+                      $('#price').val(data);
+                      $('#total_price').val(data);
+                      $('#amount').val("1");
+                    },
+                    error: function(xhr, status, error){
+                      alert(error);
+                    },
+                    dataType: 'text'
+                });
+            }
+        
+        </script>
+
+
 
       <div class="col-md-2">
         <div class="form-group">
@@ -63,6 +92,9 @@
           <input type="text" class="form-control" maxlength="40" id="price" name="price" value="" placeholder="Unitário">
         </div>
       </div>
+
+     
+
 
       <div class="col-md-2">
         <div class="form-group">

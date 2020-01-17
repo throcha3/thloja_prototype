@@ -97,48 +97,8 @@ class ProductController extends Controller
           return redirect()->route('product.show',$id)->with(['errors' => 'falha ao deletar']);
     }
 
-    // public function itemCreate($id){
-    //     $Product = Product::find($id);
-    //     $zonas = Zona::all()->sortBy("nome");
-    //     $zonasNaoIncluidas = array();
-    //     foreach ($zonas as $z) {
-    //       $vendzonaS = VendZona::where('id_Product', $Product->id)->where('id_zona', $z->id)->first();
-    //       if ($vendzonaS == null) $zonasNaoIncluidas[] = $z;
-    //     }
-    //     $zonas = $zonasNaoIncluidas;
-    //     $vendzona = VendZona::where('id_Product','=', $Product->id)->get();
-    //     return view('painel.products.item', compact('Product','vendzonas','zonas'));
-    // }
-
-    // public function itemStore(Request $request){
-
-    //     $dataForm = $request->only('id_Product',
-    //                                 'id_zona'
-    //                             );
-
-    //     $insert = VendZona::create($dataForm);
-    //     if($insert)
-    //         return redirect()->route('Product.edit',$dataForm['id_Product']);
-    //     else
-    //         return redirect()->back();
-    // }
-
-    // public function itemDel($idVend, $idVendZona){
-    //     $del = VendZona::find($idVendZona)->delete();
-    //     if($del)
-    //         return redirect()->route('Product.edit',$idVend)->with('msg','Zona excluída com sucesso');
-    //     else
-    //         return redirect()->route('Product.edit',$idVend)->withErrors('Erro ao excluir Zona, tente novamente');
-    // }
-
-    // public function disableHim($id){
-    //     $Product = Product::find($id);
-    //     if ($Product <> null){
-    //         $Product->status = '0';
-    //         $Product->token = "";
-    //         $Product->senha = "";
-    //         $Product->save();
-    //         return view('painel.products.create', compact('Product','vendzona'));
-    //     }
-    // }
+    public function getPrice($id){
+        $prod = Product::find($id);
+        return number_format($prod->price, 2, ',', '.');
+    }
 }

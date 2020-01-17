@@ -31,5 +31,8 @@ Route::post('/category/sub_store',           'Painel\CategoryController@subStore
 Route::get ('/order/{ordId}/item_create',    'Painel\OrderController@itemCreate')   ->name('order.item_create'  );
 Route::post('/order/item_store',             'Painel\OrderController@itemStore')    ->name('order.item_store'   );
 
+Route::get ('/product/price/{prodId}',       'Painel\ProductController@getPrice')->name('product.get_price');
+
+
 //Auth
 Auth::routes();
